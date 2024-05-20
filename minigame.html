@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Clicker Game</title>
+</head>
+<body>
+    <h1>Clicker Game</h1>
+    <p>auto click count: <span id="autoClickCount">0</span></p>
+    <p>bank count: <span id="bankClickCount">0</span></p>
+    <p>clickerMakerCount: <span id="clickerMakerCount">0</span></p>
+    <p>Total Clicks: <span id="clickCount">0</span></p>
+    <img width="300" height="300" src="https://paramountshop.com/cdn/shop/products/SB-Standees-Spong-3_1445x.jpg?v=1678709095" onclick="clickButton()">
+    <br><br>
+    <button id="autoClickButton" onclick="buyAutoClicker()">Buy Auto Clicker (5 clicks)</button>
+    <button id="bankButton" onclick="buyBank()">Buy Bank (1000 clicks/5s)</button>
+    <button id="clickerMakerButton" onclick="buyClickerMaker()">Buy Clicker Maker (10 clicks)</button>
+
+    <script>
+        let clickCount = 0;
+        let autoClicks = 0;
+        let bankClicks = 0;
+        let clickerMakers = 0;
+        let autoClickerCost = 5;
+        let bankCost = 1000;
+        let clickerMakerCost = 10;
+
+        function clickButton() {
+            clickCount++;
+            updateLabels();
+        }
+
+        function buyAutoClicker() {
+            if (clickCount >= autoClickerCost) {
+                clickCount -= autoClickerCost;
+                autoClicks++;
+                autoClickerCost += 5;
+                document.getElementById("autoClickButton").innerText = "Buy Auto Clicker (" + autoClickerCost + " clicks)";
+                updateLabels();
+            }
+        }
+
+        function buyBank() {
+            if (clickCount >= bankCost) {
+                clickCount -= bankCost;
+                bankClicks++;
+                bankCost += 2000;
+                document.getElementById("bankButton").innerText = "Buy Bank (" + bankCost + " clicks/5s)";
+                updateLabels();
+            }
+        }
+
+        function buyClickerMaker() {
+            if (clickCount >= clickerMakerCost) {
+                clickCount -= clickerMakerCost;
+                clickerMakers++;
+                clickerMakerCost += 5;
+                document.getElementById("clickerMakerButton").innerText = "Buy Clicker Maker (" + clickerMakerCost + " clicks)";
+                updateLabels();
+            }
+        }
+
+        function updateLabels() {
+            document.getElementById("clickCount").innerText = clickCount;
+            document.getElementById("autoClickCount").innerText = autoClicks;
+            document.getElementById("bankClickCount").innerText = bankClicks;
+            document.getElementById("clickerMakerCount").innerText = clickerMakers;
+        }
+
+        setInterval(function() {
+            clickCount += autoClicks;
+            updateLabels();
+        }, 1000);
+
+        setInterval(function() {
+            clickCount += bankClicks * 200;
+            updateLabels();
+        }, 5000);
+
+        setInterval(function() {
+            autoClicks += clickerMakers;
+            updateLabels();
+        }, 10000);
+    </script>
+</body>
+</html>
